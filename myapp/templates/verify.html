@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="static/animate.css">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body>
+
+<video src="static/bg.mp4" autoplay="" muted="" poster="" loop="" class="media" data-object-fit="cover"></video>
+
+<div class="content">
+
+    <header style="position: fixed;right: 25px;top :25px;">
+        <nav class="text-right">
+            <a href="/" class="nav-link">Home</a>
+            <a href="upload" class="nav-link">Upload</a>
+            <a href="verify" class="nav-link">Verify</a>
+        </nav>
+    </header>
+
+    <div class="head">
+        <h1 class="wow slideInLeft" data-wow-delay="0.3s" data-wow-delay="3s">WELCOME TO SIGNATURE VERIFICATION
+            SYSTEM</h1>
+    </div >
+
+<div style="margin-bottom:15px;" class="btn-group">
+        <form  onsubmit="return Validate(this);" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+            <label for="upload" class="file wow slideInLeft" id="fileLabel" data-wow-delay="0.3s"
+                   data-wow-delay="3s">Select File</label>
+            <input type="file" name="image" id="upload" class="file wow slideInLeft" data-wow-delay="0.3s"
+                   data-wow-delay="3s">
+            {% block content %}
+            <input style="visibility: hidden;" type="text" id="cName" name="cName" class="inputText wow slideInLeft" value="1"
+                   data-wow-delay="0.3s"
+                   data-wow-delay="3s">
+
+
+
+        </form>
+    </div>
+
+
+    <div class="btn-group">
+
+        <input type="text" name="search" class="inputText wow slideInLeft" placeholder="Search Here" data-wow-delay="0.3s"
+               data-wow-delay="3s" value="{{ query }}">
+        <button class="wow slideInLeft" onclick="search()" data-wow-delay="0.3s" data-wow-delay="3s">Search</button>
+    </div>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+            <tr>
+                <th>Customer Id</th>
+                <th>Customer Name</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for list in myList %}
+            <tr>
+                <td>{{ list.id }} </td>
+                <td>{{ list.name }}</td>
+                <td>
+                    <div class="btn-group">
+                        <button onclick="doVerify({{ list.id }})">Verify</button>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            {% endblock %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="static/wow.js"></script>
+<script src="static/jquery.js"></script>
+<script>
+        new WOW().init();
+  document.getElementById("upload").addEventListener("change", function () {
+            var filename = document.getElementById('upload').value;
+
+            if (filename != "") {
+                document.getElementById("fileLabel").innerHTML = filename;
+            }
+        });
+
+ function doVerify(idOfCust){
+document.getElementById('cName').value=idOfCust;
+$('form').submit()
+    }
+
+      function search(){
+    var selection = document.getElementsByName('search')[0].value;
+        window.location.href = 'http://127.0.0.1:8000/verify?q=' + selection
+    }
+
+
+var _validFileExtensions = [".jpg", ".jpeg", ".png"];
+function Validate(oForm) {
+    var arrInputs = oForm.getElementsByTagName("input");
+    for (var i = 0; i < arrInputs.length; i++) {
+        var oInput = arrInputs[i];
+        if (oInput.type == "file") {
+            var sFileName = oInput.value;
+            if (sFileName.length > 0) {
+                var blnValid = false;
+                for (var j = 0; j < _validFileExtensions.length; j++) {
+                    var sCurExtension = _validFileExtensions[j];
+                    if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                        blnValid = true;
+                        break;
+                    }
+                }
+
+                if (!blnValid) {
+                    alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+                    return false;
+                }
+            }else{
+            alert("Please select a image");
+               return false;
+            }
+        }else if(oInput.type == "text"){
+ var sFileName = oInput.value;
+            if (sFileName.length <= 0) {
+              alert("Please enter a name");
+              return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+
+$(document).ready(function() {
+      $('#cName').hide();
+});
+
+</script>
+</body>
+
+</html>

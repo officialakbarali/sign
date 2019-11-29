@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="static/animate.css">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body>
+
+<video src="static/bg.mp4" autoplay="" muted="" poster="" loop="" class="media" data-object-fit="cover"></video>
+
+<div class="content">
+
+    <header style="position: fixed;right: 25px;top :25px;">
+        <nav class="text-right">
+            <a href="/" class="nav-link">Home</a>
+            <a href="upload" class="nav-link">Upload</a>
+            <a href="verify" class="nav-link">Verify</a>
+        </nav>
+    </header>
+
+    <div class="head">
+        <h1 class="wow slideInLeft" data-wow-delay="0.3s" data-wow-delay="3s">WELCOME TO SIGNATURE VERIFICATION
+            SYSTEM</h1>
+    </div>
+    <div class="btn-group">
+        <form  onsubmit="return Validate(this);" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="upload" class="file wow slideInLeft" id="fileLabel" data-wow-delay="0.3s"
+                   data-wow-delay="3s">Select File</label>
+            <input type="file" name="image" id="upload" class="file wow slideInLeft" data-wow-delay="0.3s"
+                   data-wow-delay="3s">
+            {% block content %}
+            <input type="text" name="cName" class="inputText wow slideInLeft" placeholder="{{ title }}"
+                   data-wow-delay="0.3s"
+                   data-wow-delay="3s">
+            <button type="submit" class="wow slideInLeft" data-wow-delay="0.3s" data-wow-delay="3s">{{ btn }}</button>
+            {% endblock %}
+    
+
+        </form>
+    </div>
+</div>
+<script src="static/wow.js"></script>
+<script>
+        new WOW().init();
+        document.getElementById("upload").addEventListener("change", function () {
+            var filename = document.getElementById('upload').value;
+
+            if (filename != "") {
+                document.getElementById("fileLabel").innerHTML = filename;
+            }
+        });
+
+var _validFileExtensions = [".jpg", ".jpeg", ".png"];
+function Validate(oForm) {
+    var arrInputs = oForm.getElementsByTagName("input");
+    for (var i = 0; i < arrInputs.length; i++) {
+        var oInput = arrInputs[i];
+        if (oInput.type == "file") {
+            var sFileName = oInput.value;
+            if (sFileName.length > 0) {
+                var blnValid = false;
+                for (var j = 0; j < _validFileExtensions.length; j++) {
+                    var sCurExtension = _validFileExtensions[j];
+                    if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                        blnValid = true;
+                        break;
+                    }
+                }
+
+                if (!blnValid) {
+                    alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+                    return false;
+                }
+            }else{
+            alert("Please select a image");
+               return false;
+            }
+        }else if(oInput.type == "text"){
+ var sFileName = oInput.value;
+            if (sFileName.length <= 0) {
+              alert("Please enter a name");
+              return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+
+
+</script>
+</body>
+
+</html>

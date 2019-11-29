@@ -1,0 +1,118 @@
+body {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    margin: 0;
+    z-index: 1;
+    flex-direction: column;
+    font-size: 18px;
+    justify-content: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.content {
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #fff;
+    font-size: 50px;
+    font-weight: 500;
+}
+
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.btn-group button {
+    padding: 8px 20px;
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 18px;
+    width: 200px;
+    margin-right: 10px;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.btn-group button:hover {
+    background: #fff;
+    color: #000;
+}
+
+input {
+    font-size: 18px;
+}
+
+input.file {
+    display: none;
+}
+
+label.file {
+    width: 50px;
+    height: 20px;
+    color: #fff;
+    border-color: #fff;
+    font-size: 15px;
+}
+
+input.inputText {
+    height: 39px;
+    padding: 10px;
+    background: transparent;
+    color: #fff;
+    margin: 0 30px;
+    border: 1px solid #fff;
+}
+
+.table-wrap{
+    margin-top: 10px;
+    height: 250px;
+    overflow: auto;
+}
+.table-wrap::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+    background: #000; 
+  }
+  .table-wrap::-webkit-scrollbar-thumb {
+      background: #3d7e9a;
+}
+.table-wrap table{
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.table-wrap table td,.table-wrap table th{
+   border: 1px solid #fff;
+   min-height: 50px;
+   padding: 5px 10px;
+}
+
+.table-wrap table td{
+    font-size: 15px;
+}
+
+header nav{
+    text-align: right;
+}
+header nav .nav-link{
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="static/animate.css">
+    <link rel="stylesheet" href="static/style.css">
+    <style>
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <video src="static/bg.mp4" autoplay="" muted="" poster="" loop="" class="media" data-object-fit="cover"></video>
+
+    <div class="content">
+        <header style="position: fixed;right: 25px;top :25px;">
+        <nav class="text-right">
+            <a href="/" class="nav-link">Home</a>
+            <a href="upload" class="nav-link">Upload</a>
+            <a href="verify" class="nav-link">Verify</a>
+        </nav>
+    </header>
+
+        <div class="head">
+            <h1 class="wow slideInLeft" data-wow-delay="0.3s" data-wow-delay="3s">{{title}}</h1>
+        </div>
+
+    </div>
+    <script src="wow.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+
+</body>
+
+</html>
